@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neural EA Demo</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <script>
+    const imagePaths = {
+      btc: "{{ url_for('static', filename='images/btc.png') }}",
+      eth: "{{ url_for('static', filename='images/eth.png') }}"
+    };
+  </script>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <img src="{{ url_for('static', filename='images/btc.png') }}" alt="Circular Image" class="circular-image" id="currency-image">
+      <div class="dropdown">
+        <button class="dropbtn">Select Pair</button>
+        <div class="dropdown-content">
+          <a href="#" class="currency-option" data-currency="btc">BTCUSD</a>
+          <a href="#" class="currency-option" data-currency="eth">ETHUSD</a>
+        </div>
+      </div>
+    </div>
+    <h1 class="title">Neural EA Demo</h1>
+    <div class="gauge-container">
+      <div class="gauge">
+        <div class="gauge__body">
+          <div class="gauge__fill"></div>
+          <div class="gauge__cover">0%</div>
+        </div>
+      </div>
+    </div>
+    <div class="table-container">
+      <table class="action-table">
+        <tr>
+          <th>Sell</th>
+          <th>Neutral</th>
+          <th>Buy</th>
+        </tr>
+        <tr>
+          <td>---</td>
+          <td>---</td>
+          <td>---</td>
+        </tr>
+      </table>
+      <table class="details-table">
+        <tr>
+          <th>Name</th>
+          <th>Action</th>
+        </tr>
+        <tr>
+          <td>---</td>
+          <td>---</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
