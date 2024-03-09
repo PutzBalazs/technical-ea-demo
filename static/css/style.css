@@ -1,139 +1,124 @@
-/* Keep the existing CSS for the gauge chart */
+* {
+  box-sizing: border-box;
+}
+.cd__main{
+   background: linear-gradient(to right, #232526, #414345) !important;
+}
+body {
+  background-image: linear-gradient(140deg, #212629, #395467);
+  min-height: 100vh;
+  color: #fff;
+  font-family: "Open Sans", sans-serif;
+  position: relative;
+  padding-top: 80px;
+}
+
+a {
+  color: #5f89a7;
+  text-decoration: none;
+}
+
+.color-red {
+  stop-color: #e23131;
+}
+
+.color-yellow {
+  stop-color: #fbe500;
+}
+
+.color-green {
+  stop-color: #25cd6b;
+}
+
+.main {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.main__title {
+  text-align: center;
+  font-size: 48px;
+}
+
+.gradient-mask {
+  visibility: hidden;
+}
+
+.button {
+  position: absolute;
+  right: 40px;
+  top: 40px;
+  border: 2px solid #fff;
+  background-color: #26323a;
+  color: #fff;
+  font-weight: bold;
+  font-size: 16px;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.button:active {
+  transform: translateY(3px);
+  outline: 0;
+}
+.button:hover, .button:focus {
+  outline: 0;
+  background: linear-gradient(-140deg, #212629, #395467);
+}
+
+.gauge-container {
+  padding: 20px;
+  margin-top: 80px;
+  display: flex;
+  justify-content: space-around;
+}
 
 .gauge {
-    width: 100%;
-    max-width: 250px;
-    font-family: "Roboto", sans-serif;
-    font-size: 32px;
-    color: #004033;
-    margin: 0 auto; /* Center the gauge horizontally */
-  }
-  
-  .gauge__body {
-    width: 100%;
-    height: 0;
-    padding-bottom: 50%;
-    background: #b4c0be;
-    position: relative;
-    border-top-left-radius: 100% 200%;
-    border-top-right-radius: 100% 200%;
-    overflow: hidden;
-  }
-  
-  .gauge__fill {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: inherit;
-    height: 100%;
-    background: #009578;
-    transform-origin: center top;
-    transform: rotate(0.25turn);
-    transition: transform 0.2s ease-out;
-  }
-  
-  .gauge__cover {
-    width: 75%;
-    height: 150%;
-    background: #f0f5f5;
-    border-radius: 50%;
-    position: absolute;
-    top: 25%;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-bottom: 25%;
-    box-sizing: border-box;
-  }
-  
-  /* New CSS for centering and spacing */
-  
-  body {
-    background-color: #f0f5f5;
-    font-family: "Roboto", sans-serif;
-    text-align: center; /* Center align all text */
-  }
-  
-  .container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  
-  .header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .circular-image {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    margin-right: 20px;
-  }
-  
-  .dropdown {
-    position: relative;
-    display: inline-block;
-  }
-  
-  .dropbtn {
-    background-color: #007bff;
-    color: white;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    cursor: pointer;
-  }
-  
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-  }
-  
-  .dropdown-content a {
-    color: #004033;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-  }
-  
-  .dropdown-content a:hover {
-    background-color: #007bff;
-    color: white;
-  }
-  
-  .dropdown:hover .dropdown-content {
-    display: block;
-  }
-  
-  .dropdown:hover .dropbtn {
-    background-color: #004033;
-  }
-  
-  /* Center the tables */
-  .action-table, .details-table {
-    width: 100%;
-    max-width: 200px;
-    margin: 0 auto; /* Center the tables horizontally */
-    border-collapse: collapse;
-    text-align: center;
-  }
-  
-  .action-table th, .action-table td, .details-table th, .details-table td {
-    padding: 10px;
-  }
-    
-  .action-table td, .details-table td {
-    background-color: #f0f5f5;
-  }
-  
+  height: 220px;
+  width: 300px;
+}
+.gauge .dxg-range.dxg-background-range {
+  fill: url(#gradientGauge);
+}
+.gauge .dxg-line {
+  transform: scaleX(1.04) scaleY(1.03) translate(-4px, -4px);
+}
+.gauge .dxg-line path:first-child,
+.gauge .dxg-line path:last-child {
+  display: none;
+}
+.gauge .dxg-line path:nth-child(2),
+.gauge .dxg-line path:nth-child(6) {
+  stroke: #ed811c;
+}
+.gauge .dxg-line path:nth-child(3),
+.gauge .dxg-line path:nth-child(5) {
+  stroke: #a7db29;
+}
+.gauge .dxg-line path:nth-child(4) {
+  stroke: #25cd6b;
+}
+.gauge .dxg-elements text:first-child {
+  transform: translate(19px, 13px);
+}
+.gauge .dxg-elements text:last-child {
+  transform: translate(-27px, 14px);
+}
+.gauge .dxg-value-indicator path {
+  transform: scale(1.2) translate(0, -5px);
+  transform-origin: center center;
+}
+.gauge .dxg-value-indicator .dxg-title {
+  text-transform: uppercase;
+}
+.gauge .dxg-value-indicator .dxg-title text:first-child {
+  transform: translateY(5px);
+}
+.gauge .dxg-value-indicator .dxg-spindle-border:nth-child(4),
+.gauge .dxg-value-indicator .dxg-spindle-hole:nth-child(5) {
+  transform: translate(0, -109px);
+}
+.gauge .dxg-value-indicator .dxg-spindle-hole {
+  fill: #26323a;
+}
+

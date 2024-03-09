@@ -1,41 +1,116 @@
-const gaugeElement = document.querySelector(".gauge");
+$(function () {
+  // Function to handle currency option click
+  $('.currency-option').click(function (event) {
+    event.preventDefault();
+    let currency = $(this).data('currency');
+    let imagePath = `static/images/${currency}.png`;
+    
+    // Change the src attribute of the coin image
+    $('#coin-image').attr('src', imagePath);
+  });
 
-function setGaugeValue(gauge, value) {
-  if (value < 0 || value > 1) {
-    return;
+  class GaugeChart {
+    constructor(element, params) {
+      this._element = element;
+      this._initialValue = params.initialValue;
+      this._higherValue = params.higherValue;
+      this._title = params.title;
+      this._subtitle = params.subtitle;
+    }
+
+    _buildConfig() {
+      let element = this._element;
+
+      return {
+        value: this._initialValue,
+        valueIndicator: {
+          color: '#fff'
+        },
+        geometry: {
+          startAngle: 180,
+          endAngle: 360
+        },
+        scale: {
+          startValue: 1,
+          endValue: 100,
+          customTicks: [0, 25, 50, 75, 100],
+          tick: {
+            length: 8
+          },
+          label: {
+            font: {
+              color: '#87959f',
+              size: 9,
+              family: '"Open Sans", sans-serif'
+            }
+          }
+        },
+        title: {
+          verticalAlignment: 'bottom',
+          text: this._title,
+          font: {
+            family: '"Open Sans", sans-serif',
+            color: '#fff',
+            size: 10
+          },
+          subtitle: {
+            text: this._subtitle,
+            font: {
+              family: '"Open Sans", sans-serif',
+              color: '#fff',
+              weight: 700,
+              size: 28
+            }
+          }
+        },
+        onInitialized: function () {
+          let currentGauge = $(element);
+          let circle = currentGauge.find('.dxg-spindle-hole').clone();
+          let border = currentGauge.find('.dxg-spindle-border').clone();
+
+          currentGauge.find('.dxg-title text').first().attr('y', 48);
+          currentGauge.find('.dxg-title text').last().attr('y', 28);
+          currentGauge.find('.dxg-value-indicator').append(border, circle);
+        }
+      };
+    }
+
+    init() {
+      $(this._element).dxCircularGauge(this._buildConfig());
+    }
   }
 
-  gauge.querySelector(".gauge__fill").style.transform = `rotate(${
-    value / 2
-  }turn)`;
-  gauge.querySelector(".gauge__cover").textContent = `${Math.round(
-    value * 100
-  )}%`;
-}
-
-setGaugeValue(gaugeElement, 0.1);
-
-document.addEventListener("DOMContentLoaded", function() {
-  const dropdownLinks = document.querySelectorAll(".currency-option");
-  const currencyImage = document.getElementById("currency-image");
-
-  dropdownLinks.forEach(link => {
-    link.addEventListener("click", function(event) {
-      event.preventDefault();
-      const currency = this.getAttribute("data-currency");
-      console.log("Selected currency:", currency, "d");
-
-      if (imagePaths.hasOwnProperty(currency)) {
-        currencyImage.src = imagePaths[currency];
-
-        //ide majd nem ez kell hanem a megfelelő prdictek
-        if (currency === "btc") setGaugeValue(gaugeElement, 0.4);
-        if (currency === "eth") setGaugeValue(gaugeElement, 0.9);
-
-
-      } else {
-        console.error("Currency image path not found.");
+  $(document).ready(function () {
+    $('.gauge').each(function (index, item) {
+      let title;
+      if (index === 0) {
+        title = "Neural Net";
+      } else if (index === 1) {
+        title = "Combined";
+      } else if (index === 2) {
+        title = "Sentiment";
       }
+
+      let params = {
+        initialValue: 78, // Change the initial value here if needed
+        higherValue: 90, // Change the higher value here if needed
+        title: title,
+        subtitle: '78 %'
+      };
+
+      let gauge = new GaugeChart(item, params);
+      gauge.init();
+    });
+
+    $('#random').click(function () {
+      $('.gauge').each(function (index, item) {
+        let gauge = $(item).dxCircularGauge('instance');
+        let randomNum = Math.round(Math.random() * 100);
+        let gaugeElement = $(gauge._$element[0]);
+
+        gaugeElement.find('.dxg-title text').last().html(`${randomNum} %`);
+        gauge.value(randomNum);
+      });
     });
   });
 });
