@@ -92,7 +92,7 @@ $(function () {
     gauge.init();
   });
 
-  $('#random').click(function () {
+  /*$('#random').click(function () {
     $('.gauge').each(function (index, item) {
       let gauge = $(item).dxCircularGauge('instance');
       let randomNum = Math.round(Math.random() * 100);
@@ -101,7 +101,7 @@ $(function () {
       gaugeElement.find('.dxg-title text').last().html(`${randomNum} %`);
       gauge.value(randomNum);
     });
-  });
+  });*/
 
   // Dropdown menu functionality
 
@@ -118,6 +118,19 @@ $(function () {
     const currencyImage = document.getElementById("c-image");
     if (currencyImage) {
       currencyImage.src = imagePath;
+
+      //random value to gauge charts
+      // majd ide kellenek a predictek
+
+      $('.gauge').each(function (index, item) {
+        let gauge = $(item).dxCircularGauge('instance');
+        let randomNum = Math.round(Math.random() * 100);
+        let gaugeElement = $(gauge._$element[0]);
+  
+        gaugeElement.find('.dxg-title text').last().html(`${randomNum} %`);
+        gauge.value(randomNum);
+      });
+
     } else {
       console.error("Element with ID 'c-image' not found.");
     }
