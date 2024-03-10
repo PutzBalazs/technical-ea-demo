@@ -1,13 +1,4 @@
 $(function () {
-  // Function to handle currency option click
-  $('.currency-option').click(function (event) {
-    event.preventDefault();
-    let currency = $(this).data('currency');
-    let imagePath = `static/images/${currency}.png`;
-    
-    // Change the src attribute of the coin image
-    $('#coin-image').attr('src', imagePath);
-  });
 
   class GaugeChart {
     constructor(element, params) {
@@ -80,37 +71,66 @@ $(function () {
     }
   }
 
-  $(document).ready(function () {
+  $('.gauge').each(function (index, item) {
+    let title;
+    if (index === 0) {
+      title = "Neural Net";
+    } else if (index === 1) {
+      title = "Combined";
+    } else if (index === 2) {
+      title = "Sentiment";
+    }
+
+    let params = {
+      initialValue: 78, // Change the initial value here if needed
+      higherValue: 90, // Change the higher value here if needed
+      title: title,
+      subtitle: '78 %'
+    };
+
+    let gauge = new GaugeChart(item, params);
+    gauge.init();
+  });
+
+  $('#random').click(function () {
     $('.gauge').each(function (index, item) {
-      let title;
-      if (index === 0) {
-        title = "Neural Net";
-      } else if (index === 1) {
-        title = "Combined";
-      } else if (index === 2) {
-        title = "Sentiment";
-      }
+      let gauge = $(item).dxCircularGauge('instance');
+      let randomNum = Math.round(Math.random() * 100);
+      let gaugeElement = $(gauge._$element[0]);
 
-      let params = {
-        initialValue: 78, // Change the initial value here if needed
-        higherValue: 90, // Change the higher value here if needed
-        title: title,
-        subtitle: '78 %'
-      };
-
-      let gauge = new GaugeChart(item, params);
-      gauge.init();
-    });
-
-    $('#random').click(function () {
-      $('.gauge').each(function (index, item) {
-        let gauge = $(item).dxCircularGauge('instance');
-        let randomNum = Math.round(Math.random() * 100);
-        let gaugeElement = $(gauge._$element[0]);
-
-        gaugeElement.find('.dxg-title text').last().html(`${randomNum} %`);
-        gauge.value(randomNum);
-      });
+      gaugeElement.find('.dxg-title text').last().html(`${randomNum} %`);
+      gauge.value(randomNum);
     });
   });
+
+  // Dropdown menu functionality
+
+  $(".dropbtn").click(function () {
+    $(this).next(".dropdown-content").toggleClass("show");
+  });
+
+  $(".currency-option").click(function () {
+    const currency = $(this).data("currency");
+    console.log(currency);
+    const imagePath = imagePaths[currency];
+    
+    // Update the image source using vanilla JavaScript
+    const currencyImage = document.getElementById("c-image");
+    if (currencyImage) {
+      currencyImage.src = imagePath;
+    } else {
+      console.error("Element with ID 'c-image' not found.");
+    }
+  
+    $(this).closest(".dropdown-content").removeClass("show");
+  });
+  
+
+  //felrekattintas
+  $(document).click(function (e) {
+    if (!$(e.target).closest(".dropdown").length) {
+      $(".dropdown-content").removeClass("show");
+    }
+  });
+
 });

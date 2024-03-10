@@ -9,13 +9,21 @@
       <link rel="stylesheet" href="{{ url_for('static', filename='css/demo.css') }}">
       <link rel="stylesheet" href="{{ url_for('static', filename='css/reset.min.css') }}">
       <link rel="stylesheet" href="{{ url_for('static', filename='css/OpenSans.css') }}">
+      <script>
+         const imagePaths = {
+           btc: "{{ url_for('static', filename='images/btc.png') }}",
+           eth: "{{ url_for('static', filename='images/eth.png') }}"
+         };
+       </script>
    </head>
    <body>
       <header class="cd__intro">
-         <h1> Gauge Chart Example </h1>
-         <p> Gauge Chart </p>
+         <h1> Neural EA </h1>
+         <p> Fundamental Analist </p>
          <div class="header">
-          <img src="{{ url_for('static', filename='images/btc.png') }}" alt="Coin Img" class="c-image" id="coin-image">
+            
+         <img src="{{ url_for('static', filename='images/btc.png') }}" alt="Coin Img" class="c-image" id="c-image">
+
           <div class="dropdown">
             <button class="dropbtn">Select Pair</button>
             <div class="dropdown-content">
@@ -28,7 +36,7 @@
       <main class="cd__main">
          <section class="main">
             <button id="random" class="button">Random value</button>
-            <h1 class="main__title">Gauge Chart</h1>
+            <h1 class="main__title">Predictions</h1>
             <div class="gauge-container">
                <div class="gauge"></div>
                <div class="gauge"></div>
@@ -47,9 +55,6 @@
             </defs>  
          </svg>
       </main>
-      <footer class="cd__credit">
-         Author: Bruno Carvalho - Distributed By: <a title="Free web design code & scripts" href="https://www.codehim.com?source=demo-page" target="_blank">CodeHim</a>
-      </footer>
       <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.2/jquery.min.js'></script>
       <script src='https://cdn3.devexpress.com/jslib/17.1.6/js/dx.all.js'></script>
       <script src="{{ url_for('static', filename='js/script.js') }}"></script>
